@@ -37,7 +37,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         landmarkImages.append(UIImage(named: "Stonehenge")!)
         landmarkImages.append(UIImage(named: "TajMahal")!)
     }
-    // Sola çekerek silme işlemi için kullanılan hazır func
+    // Sola çekerek silme işlemi için kullanılan hazır function
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
             landmarkNames.remove(at: indexPath.row)

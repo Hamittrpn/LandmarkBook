@@ -14,6 +14,9 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     var landmarkNames = [String]()
     var landmarkImages = [UIImage]()
+    
+    var chosenLandmarkNames = ""
+    var chosenLandmarkImages = UIImage()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +39,8 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         landmarkImages.append(UIImage(named: "Kremlin")!)
         landmarkImages.append(UIImage(named: "Stonehenge")!)
         landmarkImages.append(UIImage(named: "TajMahal")!)
+        
+        navigationItem.title = "Landmark Book"
     }
     // Sola çekerek silme işlemi için kullanılan hazır func
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -55,6 +60,22 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     // TableView'ımda kaç tane row olacağını belirtiyorum
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return landmarkNames.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        chosenLandmarkNames = landmarkNames[indexPath.row]
+        chosenLandmarkImages = landmarkImages[indexPath.row]
+        
+        performSegue(withIdentifier: "toImageViewController", sender: nil)
+    }
+    // Segue olmadan önce yapılacak işlem. Segue'nin id'sini kontrol etmekte fayda var !
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toImageViewController"{
+            let destinationVC = segue.destination as! imageViewController // ImageViewController'ı bir değişkene tanımladım.
+            destinationVC.selectedLandmarkName = chosenLandmarkNames
+            destinationVC.selectedLandmarkImage = chosenLandmarkImages
+        }
     }
 }
 
